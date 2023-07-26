@@ -3,6 +3,7 @@ import { StatusBar, StyleSheet } from 'react-native';
 import CategoriesScreen from './screens/CategoriesScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
+import MealDetailsScreen from './screens/MealDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,10 @@ export default function App() {
             //   const catId = route.params.categoryId;
             //   return { title: catId };
             // }}
+          />
+          <Stack.Screen
+            name='MealDetailsScreen'
+            component={MealDetailsScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
