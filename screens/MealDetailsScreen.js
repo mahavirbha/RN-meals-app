@@ -6,25 +6,32 @@ import MealDetails from '../components/MealDetails';
 import List from '../components/mealdetail/List';
 import Subtitle from '../components/mealdetail/Subtitle';
 import { MEALS } from '../data/dummy-data';
-import { FavouriteContext } from '../store/context/FavouriteContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavourite, removeFavourite } from '../store/redux/favourites';
+// import { FavouriteContext } from '../store/context/FavouriteContext';
 
 const MealDetailsScreen = ({ route, navigation }) => {
-  const favouriteMealContext = useContext(FavouriteContext);
+  // const favouriteMealContext = useContext(FavouriteContext);
+  const favouriteMealIds = useSelector((state) => state.favouriteMeals.ids);
+  const dispatch = useDispatch();
 
   const mealId = route.params.mealId;
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  const isMealFavourite = favouriteMealContext.ids.includes(mealId);
+  // const isMealFavourite = favouriteMealContext.ids.includes(mealId);
+  const isMealFavourite = favouriteMealIds.includes(mealId);
 
   const { duration, complexity, affordability, imageUrl, ingredients, steps } =
     selectedMeal;
 
   function onPressHandler(params) {
     if (isMealFavourite) {
-      favouriteMealContext.removeFavourites(mealId);
+      // favouriteMealContext.removeFavourites(mealId);
+      dispatch(removeFavourite({ id: mealId }));
     } else {
-      favouriteMealContext.addFavpourites(mealId);
+      // favouriteMealContext.addFavpourites(mealId);
+      dispatch(addFavourite({ id: mealId }));
     }
   }
 
